@@ -1,0 +1,413 @@
+<title>Мудборд Дианы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@400;500;600&display=swap">
+<style>
+/* Layout: узкая «книжная» колонка, как лист ателье; секции разделены тонкими «строчками» шва. Единая светлая палитра бренда — показывает реальные цвета, поэтому без тёмной темы. */
+:root {
+  --milk: #F3ECE2;      /* Молочный шёлк — фон */
+  --powder: #DCC2B8;    /* Пудра */
+  --cherry: #5A1A26;    /* Вишнёвый бархат — акцент */
+  --cocoa: #2E211D;     /* Горький шоколад — текст */
+  --gold: #A8875A;      /* Старое золото — тонкие детали */
+  --mist: #8E9AA3;      /* Дымчатый голубой — холодная пара */
+  --paper: #FBF7F1;
+  --muted: #6E5D55;
+  --display: "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
+  --text: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--milk);
+  color: var(--cocoa);
+  font-family: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  padding-inline: 16px;
+  padding-block: 0 64px;
+}
+.wrap { max-width: 880px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(44px, 9vw, 76px); line-height: 1; letter-spacing: -0.01em; }
+h1 em { color: var(--cherry); font-style: italic; }
+h2 { font-size: clamp(30px, 5vw, 40px); line-height: 1.1; }
+h3 { font-size: 22px; }
+p { margin: 0; max-width: 65ch; }
+.eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+header { padding-block: 56px 32px; display: grid; gap: 18px; }
+.lede { font-size: 16px; color: var(--muted); }
+.note {
+  background: var(--paper);
+  border: 1px solid var(--powder);
+  padding: 14px 16px;
+  font-size: 13.5px;
+  max-width: none;
+}
+section { padding-block: 40px; border-top: 1.5px dashed var(--gold); display: grid; gap: 22px; }
+.sec-head { display: grid; gap: 8px; }
+
+/* Настроение */
+.mood { display: flex; flex-wrap: wrap; gap: 10px; }
+.mood span {
+  font-family: var(--display); font-style: italic; font-size: 22px;
+  padding: 4px 16px; border: 1px solid var(--cherry); color: var(--cherry); border-radius: 999px;
+}
+.refs { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+.ref { background: var(--paper); padding: 16px; display: grid; gap: 6px; min-width: 0; }
+.ref b { font-family: var(--display); font-size: 20px; font-weight: 600; }
+.ref small { color: var(--muted); font-size: 13px; }
+
+/* Палитра */
+.palette { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+.sw { display: grid; grid-template-rows: 110px auto; background: var(--paper); min-width: 0; }
+.chip { display: flex; align-items: flex-end; padding: 10px; }
+.sw-body { padding: 10px 12px 14px; display: grid; gap: 4px; }
+.sw-name { font-family: var(--display); font-size: 19px; font-weight: 600; line-height: 1.1; }
+.sw-use { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+.hex {
+  font: 500 12px/1 var(--text); letter-spacing: 0.06em;
+  background: rgba(251,247,241,.85); color: var(--cocoa);
+  border: 0; padding: 6px 8px; cursor: pointer;
+}
+.hex:focus-visible, .copy:focus-visible { outline: 2px solid var(--cherry); outline-offset: 2px; }
+.ratio { display: flex; height: 18px; max-width: 100%; }
+.ratio div { height: 100%; }
+.ratio-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12.5px; color: var(--muted); }
+
+/* Шрифты */
+.fonts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.font-card { background: var(--paper); padding: 20px; display: grid; gap: 10px; min-width: 0; }
+.sample-d { font-family: var(--display); font-size: 40px; line-height: 1.05; }
+.sample-d i { color: var(--cherry); }
+.sample-t { font-family: var(--text); font-size: 17px; font-weight: 500; }
+.spec { font-size: 12.5px; color: var(--muted); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+.tbl { overflow-x: auto; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--powder); vertical-align: top; }
+th { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+
+/* Обложки */
+.covers { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+.cover {
+  aspect-ratio: 9 / 16; max-width: 100%; position: relative; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 18px;
+}
+.cover .safe { position: absolute; inset: 0; pointer-events: none; }
+.cover .safe::before, .cover .safe::after {
+  content: ""; position: absolute; left: 0; right: 0; background: rgba(46,33,29,.08);
+}
+.cover .safe::before { top: 0; height: 14%; }
+.cover .safe::after { bottom: 0; height: 20%; }
+.cover .tag { font-size: 9.5px; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; }
+.cover .t { font-family: var(--display); font-size: 30px; line-height: 1; margin-top: 8px; }
+.cover .t i { font-style: italic; }
+.cover .line { width: 40px; height: 1px; margin: 12px auto 0; }
+.c1 { background: linear-gradient(180deg, #CDB4A8 0%, #B79A8C 100%); color: var(--paper); }
+.c1 .line { background: var(--paper); }
+.c2 { background: var(--milk); color: var(--cherry); border: 1px solid var(--powder); }
+.c2 .line { background: var(--gold); }
+.c3 { background: var(--cherry); color: var(--milk); }
+.c3 .line { background: var(--gold); }
+.cap { font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+.photo-hint {
+  position: absolute; inset: 14% 0 20%; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase; opacity: .55;
+}
+
+/* Сетка ленты */
+.grid-wrap { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 24px; align-items: start; }
+.feed { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; max-width: 360px; width: 100%; }
+.feed div {
+  aspect-ratio: 3 / 4; max-width: 100%; display: flex; align-items: center; justify-content: center;
+  font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; text-align: center; padding: 4px;
+}
+.f-you { background: #B79A8C; color: var(--paper); }
+.f-detail { background: var(--powder); color: var(--cocoa); }
+.f-text { background: var(--milk); color: var(--cherry); font-family: var(--display); font-size: 15px !important; text-transform: none !important; letter-spacing: 0 !important; border: 1px solid var(--powder); }
+.legend { display: grid; gap: 10px; font-size: 14px; }
+.legend div { display: flex; gap: 10px; align-items: baseline; }
+.dot { width: 12px; height: 12px; flex: none; display: inline-block; transform: translateY(1px); }
+
+/* Списки правил */
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.rule { background: var(--paper); padding: 18px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.rule ul { margin: 0; padding-left: 18px; display: grid; gap: 5px; font-size: 14px; }
+.yes h3 { color: var(--cocoa); }
+.no h3 { color: var(--cherry); }
+.preset { font-variant-numeric: tabular-nums; }
+.preset td:last-child { font-weight: 600; white-space: nowrap; }
+
+.bio {
+  background: var(--paper); padding: 20px; display: grid; gap: 10px; border-left: 2px solid var(--cherry);
+}
+.bio pre {
+  margin: 0; font-family: var(--text); font-size: 14.5px; white-space: pre-wrap; line-height: 1.55;
+}
+.copy {
+  justify-self: start; font: 500 12px var(--text); letter-spacing: .08em; text-transform: uppercase;
+  background: var(--cherry); color: var(--milk); border: 0; padding: 9px 14px; cursor: pointer;
+}
+.toast {
+  position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+  background: var(--cocoa); color: var(--milk); padding: 8px 14px; font-size: 13px;
+}
+@media (max-width: 640px) {
+  .grid-wrap { grid-template-columns: minmax(0, 1fr); }
+  header { padding-block: 36px 24px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Визуальный стиль аккаунта · черновик 1</div>
+    <h1>Силуэт, <em>талия</em>, бархат и шёлк</h1>
+    <p class="lede">Мудборд для блога Дианы: палитра, шрифты, обложки, лента и съёмка. Задача — чтобы ничего не приходилось придумывать заново: открыла, взяла цвет и шрифт, сняла по правилам.</p>
+    <p class="note">Собран по твоим ориентирам: викторианская и эдвардианская эпохи, New Look, 50-е, русская женственность, настроение Ульяны Сергеенко. Доску Pinterest открыть не получилось: из среды, где я работаю, Pinterest заблокирован. Пришли 6–10 скриншотов любимых пинов — подгоню палитру под них.</p>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Настроение</div>
+      <h2>Как должен ощущаться аккаунт</h2>
+    </div>
+    <div class="mood">
+      <span>изящно</span><span>тепло</span><span>камерно</span><span>с историей</span><span>не базово</span>
+    </div>
+    <p>Мягкий дневной свет, натуральные ткани крупным планом, много воздуха в кадре. Похоже на ателье начала века, только снятое сегодня на телефон. Без глянца, неона и пёстрых фонов.</p>
+    <div class="refs">
+      <div class="ref"><b>Эдвардианская блузка</b><small>Высокий ворот, кружево, мягкий объём рукава. Отсюда — нежность и светлые тона.</small></div>
+      <div class="ref"><b>New Look, 1947</b><small>Узкая талия, мягкое плечо, объём юбки. Отсюда — силуэт и контраст.</small></div>
+      <div class="ref"><b>Мода 50-х</b><small>Пояса, ровные линии, ухоженность. Отсюда — аккуратность кадра.</small></div>
+      <div class="ref"><b>Русская женственность</b><small>Бархат, вишнёвый и молочный, золото в деталях. Отсюда — акцентный цвет.</small></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Палитра</div>
+      <h2>Шесть цветов бренда</h2>
+      <p>Нажми на код цвета — он скопируется. Вставляй его в CapCut и Canva в поле HEX.</p>
+    </div>
+    <div class="palette" id="palette"></div>
+    <div class="ratio" aria-hidden="true">
+      <div style="width:60%;background:var(--milk);border:1px solid var(--powder)"></div>
+      <div style="width:25%;background:var(--powder)"></div>
+      <div style="width:10%;background:var(--cocoa)"></div>
+      <div style="width:5%;background:var(--cherry)"></div>
+    </div>
+    <div class="ratio-legend">
+      <span>60% — молочный (фон, воздух)</span>
+      <span>25% — пудра и ткани</span>
+      <span>10% — шоколад (текст)</span>
+      <span>5% — вишнёвый (один акцент на кадр)</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Шрифты</div>
+      <h2>Два шрифта на всё</h2>
+      <p>Оба бесплатные, с кириллицей, скачиваются с Google Fonts. В CapCut: Текст → Шрифт → значок импорта; если в твоей версии импорта нет, бери похожий шрифт с засечками из встроенных и держись его везде.</p>
+    </div>
+    <div class="fonts">
+      <div class="font-card">
+        <div class="eyebrow">Заголовки и обложки</div>
+        <div class="sample-d">Пиджак. <i>Серия 1</i></div>
+        <div class="spec">Cormorant Garamond · Medium, курсив для акцентного слова</div>
+      </div>
+      <div class="font-card">
+        <div class="eyebrow">Текст на экране и слайдах</div>
+        <div class="sample-t">Лекало строю сама — под свою фигуру</div>
+        <div class="spec">Montserrat · Medium, без заглавных букв во всю фразу</div>
+      </div>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Где</th><th>Шрифт</th><th>Размер в CapCut</th><th>Цвет</th></tr></thead>
+        <tbody>
+          <tr><td>Хук в первые 2 секунды</td><td>Cormorant Garamond</td><td>крупно, 2 строки максимум</td><td>молочный на фото / вишнёвый на светлом</td></tr>
+          <tr><td>Пояснения по ходу ролика</td><td>Montserrat Medium</td><td>средний, 1 строка</td><td>молочный с лёгкой тенью</td></tr>
+          <tr><td>Субтитры</td><td>Montserrat Medium</td><td>мелкий, по центру нижней трети</td><td>молочный</td></tr>
+          <tr><td>Обложки рилсов</td><td>Cormorant Garamond</td><td>крупно, по центру</td><td>см. шаблоны ниже</td></tr>
+          <tr><td>Карусели: заголовок / текст</td><td>Cormorant / Montserrat</td><td>заголовок втрое крупнее текста</td><td>шоколад на молочном</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Обложки рилсов</div>
+      <h2>Три шаблона, без вариантов</h2>
+      <p>Затемнённые полосы сверху и снизу — зоны, которые закрывает интерфейс Instagram. Текст туда не ставь. В ленте обложка обрезается до 3:4, поэтому держи надпись ближе к центру.</p>
+    </div>
+    <div class="covers">
+      <div>
+        <div class="cover c1"><div class="safe"></div><div class="photo-hint">твоё фото</div>
+          <div class="tag">Рождение вещи</div><div class="t">Пиджак.<br><i>Серия 1</i></div><div class="line"></div></div>
+        <p class="cap"><b>А. Фото + надпись.</b> Для ВЕЩЬ и ОБРАЗ. Фото на тебе или ткань крупно, текст молочным.</p>
+      </div>
+      <div>
+        <div class="cover c2"><div class="safe"></div>
+          <div class="tag" style="color:var(--muted)">Анатомия силуэта</div><div class="t">Почему<br>в каждой вещи<br><i>есть талия</i></div><div class="line"></div></div>
+        <p class="cap"><b>Б. Текст на молочном.</b> Для СИЛУЭТ и ЭПОХА, обложки каруселей.</p>
+      </div>
+      <div>
+        <div class="cover c3"><div class="safe"></div>
+          <div class="tag" style="color:var(--powder)">Путь дизайнера</div><div class="t">Что я узнала<br><i>на уроке</i></div><div class="line"></div></div>
+        <p class="cap"><b>В. Вишнёвый бархат.</b> Для ПУТЬ. Редко — не чаще одной из девяти в ленте.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Лента</div>
+      <h2>Ритм первых девяти публикаций</h2>
+    </div>
+    <div class="grid-wrap">
+      <div class="feed" aria-label="Схема ленты 3 на 3">
+        <div class="f-you">ты в костюме</div><div class="f-text">Почему талия</div><div class="f-detail">ткань крупно</div>
+        <div class="f-detail">примерка</div><div class="f-you">ты в пиджаке</div><div class="f-text">Что узнала</div>
+        <div class="f-text">New Look</div><div class="f-detail">пальто: ткань</div><div class="f-you">ты в костюме</div>
+      </div>
+      <div class="legend">
+        <div><span class="dot" style="background:#B79A8C"></span><span><b>Ты в кадре</b> — каждая третья клетка. Силуэт на теле — главное, что продаёт.</span></div>
+        <div><span class="dot" style="background:var(--powder)"></span><span><b>Процесс и детали</b> — ткань, лекало, руки, примерка.</span></div>
+        <div><span class="dot" style="background:var(--milk);border:1px solid var(--powder)"></span><span><b>Текстовая обложка</b> — карусели и разборы.</span></div>
+        <p style="color:var(--muted);font-size:13.5px">Схема по диагонали: три типа клеток не стоят рядом одинаковыми. Идеально соблюдать не нужно — достаточно не ставить три текстовые обложки подряд.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Съёмка</div>
+      <h2>Правила кадра</h2>
+    </div>
+    <div class="rules">
+      <div class="rule yes">
+        <h3>Делаем</h3>
+        <ul>
+          <li>Дневной свет сбоку от окна, утром</li>
+          <li>Фон: светлая стена, ткань, вешалка, манекен</li>
+          <li>Ты в кадре в полный рост — для силуэта; камера на уровне талии</li>
+          <li>Крупные планы ткани, швов, пуговиц</li>
+          <li>Одна вещь в кадре — главная</li>
+          <li>Штатив вертикально, 9:16</li>
+        </ul>
+      </div>
+      <div class="rule no">
+        <h3>Не делаем</h3>
+        <ul>
+          <li>Съёмка против окна и под жёлтой лампой</li>
+          <li>Бытовой фон: игрушки, посуда, сушилка</li>
+          <li>Отражения ребёнка в зеркалах</li>
+          <li>Яркие фильтры, неон, сильная резкость</li>
+          <li>Кадр снизу вверх — искажает силуэт</li>
+          <li>Больше двух шрифтов</li>
+        </ul>
+      </div>
+      <div class="rule">
+        <h3>Реквизит, который работает</h3>
+        <ul>
+          <li>Деревянная вешалка</li>
+          <li>Сантиметровая лента, портновский мел, ножницы</li>
+          <li>Катушки ниток в цветах палитры</li>
+          <li>Старая книга или открытка с модой прошлого века</li>
+          <li>Сухоцвет или одна ветка в вазе</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Обработка</div>
+      <h2>Один пресет на все фото</h2>
+      <p>Стартовые значения для Lightroom Mobile (бесплатная версия). Это отправная точка: подкрути на 2–3 своих фото, сохрани как пресет «Диана» и применяй ко всему. В CapCut для видео — те же направления: чуть теплее, чуть мягче, чуть меньше насыщенности.</p>
+    </div>
+    <div class="tbl">
+      <table class="preset">
+        <thead><tr><th>Настройка</th><th>Что делает</th><th>Значение</th></tr></thead>
+        <tbody>
+          <tr><td>Температура</td><td>теплее, «молочный» свет</td><td>+6…+10</td></tr>
+          <tr><td>Контраст</td><td>мягче, как плёнка</td><td>−10</td></tr>
+          <tr><td>Светлые</td><td>вытянуть детали на ткани</td><td>−20</td></tr>
+          <tr><td>Тени</td><td>открыть тёмные складки</td><td>+10</td></tr>
+          <tr><td>Насыщенность</td><td>приглушить пестроту</td><td>−10</td></tr>
+          <tr><td>Красный → насыщенность</td><td>вишнёвый глубже, без «кислоты»</td><td>−5, яркость −5</td></tr>
+          <tr><td>Зерно</td><td>лёгкая винтажная фактура</td><td>10–15</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="eyebrow">Профиль</div>
+      <h2>Аватар и шапка</h2>
+    </div>
+    <div class="rules">
+      <div class="rule">
+        <h3>Аватар</h3>
+        <ul>
+          <li>Твоё лицо и плечи, светлый фон, дневной свет</li>
+          <li>На тебе — своя вещь (пиджак)</li>
+          <li>Без логотипа, пока нет бренда</li>
+        </ul>
+      </div>
+      <div class="rule">
+        <h3>Обложки «Актуального»</h3>
+        <ul>
+          <li>Молочный круг + одно слово Cormorant вишнёвым</li>
+          <li>Обо мне · Пиджак · Пальто · Студия · Заказ</li>
+          <li>Делаются в Canva за 15 минут по этим цветам</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bio">
+      <div class="eyebrow">Текст шапки — готово к вставке</div>
+      <pre id="bio">Диана · шью силуэт
+Талия, винтаж, русская женственность — в современной обработке
+Путь от швейной студии до своего бренда</pre>
+      <button class="copy" id="copyBio" type="button">Скопировать шапку</button>
+    </div>
+  </section>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const colors = [
+  ["Молочный шёлк", "#F3ECE2", "Фон обложек и каруселей, «воздух»", "var(--cocoa)"],
+  ["Пудра", "#DCC2B8", "Подложки, второй фон, рамки", "var(--cocoa)"],
+  ["Вишнёвый бархат", "#5A1A26", "Акцент: одно слово, кнопка, обложка ПУТЬ", "var(--milk)"],
+  ["Горький шоколад", "#2E211D", "Текст на светлом", "var(--milk)"],
+  ["Старое золото", "#A8875A", "Тонкие линии, рамки, мелкие детали", "var(--cocoa)"],
+  ["Дымчатый голубой", "#8E9AA3", "Редко: холодная пара к вишнёвому", "var(--cocoa)"]
+];
+const pal = document.getElementById("palette");
+const toast = document.getElementById("toast");
+let tId;
+function say(msg) {
+  toast.textContent = msg; toast.hidden = false;
+  clearTimeout(tId); tId = setTimeout(() => { toast.hidden = true; }, 1600);
+}
+function copy(text, label) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => say("Скопировано: " + label)).catch(() => say("Выдели и скопируй вручную: " + text));
+  } else { say("Выдели и скопируй вручную: " + text); }
+}
+colors.forEach(([name, hex, use]) => {
+  const el = document.createElement("div");
+  el.className = "sw";
+  el.innerHTML = `<div class="chip" style="background:${hex}"><button class="hex" type="button">${hex}</button></div>
+    <div class="sw-body"><div class="sw-name">${name}</div><div class="sw-use">${use}</div></div>`;
+  el.querySelector("button").addEventListener("click", () => copy(hex, hex));
+  pal.appendChild(el);
+});
+document.getElementById("copyBio").addEventListener("click", () => copy(document.getElementById("bio").textContent, "шапка профиля"));
+</script>
